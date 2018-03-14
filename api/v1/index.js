@@ -18,9 +18,12 @@ import fs from 'fs';
 const mysqlPool = connectMySQL(mysqlParams);
 
 const NumberToDecimal2 = (num) => {
+    // console.log("Original: ", num);
     num = Number.parseFloat(num);
-
-    return num.toFixed(2);
+    res = num.toFixed(2);
+    // console.log("Float: ", num);
+    // console.log("toFixed: ", num.toFixed(2));
+    return res;
 }
 
 const testGraph = async (ctx, next) => {
