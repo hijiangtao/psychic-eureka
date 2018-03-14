@@ -8,6 +8,7 @@ router
     .get('/testGraph', api.testGraph)
     .all('/basicGraph', api.basicGraph)
     .all('/clusterDots', api.clusterDots)
-    .all('/tripFlow', api.tripFlow);
+    .all('/tripFlow', api.tripFlow)
+    .all('/treeMap', api.treeMap);
 
 module.exports = router;

@@ -10,6 +10,9 @@ import {
 import {
     queryTripFlow
 } from './methods/queryTripFlow';
+import {
+    queryTreeMap
+} from './methods/queryTreeMap';
 
 export {
     queryTest,

@@ -6,11 +6,14 @@ import {
     queryGraph,
     queryTest,
     queryClusterDots,
-    queryTripFlow
+    queryTripFlow,
+    queryTreeMap
 } from '../../util/agg-utils';
 import {
     mysqlParams
 } from '../../conf/db';
+let fs = require('fs');
+let path = require('path');
 
 const mysqlPool = connectMySQL(mysqlParams);
 
@@ -53,9 +56,33 @@ const tripFlow = async (ctx, next) => {
     return ctx.body = jsonpTransfer(res, queryParams);
 }
 
+const treeMap = async (ctx, next) => {
+    let queryParams = ctx.query,
+        cbFunc = queryParams.callback;
+    // 传输参数初始化处理
+    const treeNum = queryParams.treeNum ? queryParams.treeNum : 150,
+        searchAngle = queryParams.searchAngle ? queryParams.searchAngle : 60,
+        seedStrength = queryParams.seedStrength ? queryParams.seedStrength : 0.1,
+        spaceInterval = queryParams.spaceInterval ? queryParams.spaceInterval : 200,
+        lineDirection = 'from'; // queryParams.lineDirection ? queryParams.lineDirection : 'from';
+
+    const FileName = `tmres-angle-9_${treeNum}_${searchAngle}_${seedStrength}_${spaceInterval}`,
+        FilePath = '/datahouse/taojiang/bj-byhour-res';
+    queryParams.ResFileName = FileName;
+    queryParams.ResFilePath = FilePath;
+
+    let file = path.resolve(FilePath, FileName),
+        ifResExist = fs.existsSync(file);
+    let res = ifResExist ? JSON.parse(fs.readFileSync(file)) : await queryTreeMap(queryParams);
+
+
+    return ctx.body = jsonpTransfer(res, queryParams);
+}
+
 export {
     testGraph,
     basicGraph,
     clusterDots,
-    tripFlow
+    tripFlow,
+    treeMap
 }
