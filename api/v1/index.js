@@ -79,7 +79,7 @@ const treeMap = async (ctx, next) => {
     queryParams.lineDirection = 'from'; // queryParams.lineDirection ? queryParams.lineDirection : 'from';
 
     // console.log(queryParams.seedStrength);
-    const FileName = `tmres-angle-9_${queryParams.treeNum}_${queryParams.searchAngle}_${queryParams.seedStrength}`,
+    const FileName = `tmres-angle-9_${queryParams.treeNum}_${queryParams.searchAngle}_${queryParams.seedStrength}_${queryParams.treeWidth}`,
         FilePath = `/datahouse/tripflow/${queryParams.spaceInterval}/bj-byhour-res`;
 
     queryParams.PyInputPath = `/datahouse/tripflow/${queryParams.spaceInterval}`;
