@@ -17,6 +17,12 @@ import fs from 'fs';
 
 const mysqlPool = connectMySQL(mysqlParams);
 
+const NumberToDecimal2 = (num) => {
+    let num = Number.parseFloat(num);
+
+    return num.toFixed(2);
+}
+
 const testGraph = async (ctx, next) => {
     ctx.body = await queryTest(mysqlPool);
 }
@@ -62,7 +68,7 @@ const treeMap = async (ctx, next) => {
     // 传输参数初始化处理
     queryParams.treeNum = queryParams.treeNum ? queryParams.treeNum : 150;
     queryParams.searchAngle = queryParams.searchAngle ? queryParams.searchAngle : 60;
-    queryParams.seedStrength = (Number.parseFloat(queryParams.seedStrength)).toFixed(2) ? queryParams.seedStrength : 0.1;
+    queryParams.seedStrength = NumberToDecimal2(queryParams.seedStrength) ? queryParams.seedStrength : '0.10';
     queryParams.treeWidth = queryParams.treeWidth ? queryParams.treeWidth : 1;
     queryParams.spaceInterval = queryParams.spaceInterval ? queryParams.spaceInterval : 200;
     queryParams.lineDirection = 'from'; // queryParams.lineDirection ? queryParams.lineDirection : 'from';
@@ -80,7 +86,7 @@ const treeMap = async (ctx, next) => {
     let file = path.resolve(FilePath, FileName),
         ifResExist = fs.existsSync(file);
 
-    console.log("Resul File exist: ", ifResExist)
+    // console.log("Resul File exist: ", ifResExist)
     let res = ifResExist ? JSON.parse(fs.readFileSync(file)) : await queryTreeMap(queryParams);
 
 
