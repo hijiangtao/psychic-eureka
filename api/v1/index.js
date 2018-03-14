@@ -19,11 +19,13 @@ const mysqlPool = connectMySQL(mysqlParams);
 
 const NumberToDecimal2 = (num) => {
     // console.log("Original: ", num);
-    num = Number.parseFloat(num);
-    res = num.toFixed(2);
-    // console.log("Float: ", num);
-    // console.log("toFixed: ", num.toFixed(2));
-    return res;
+    try {
+        num = Number.parseFloat(num);
+    } catch (error) {
+        num = 0.10;
+    } finally {
+        return num.toFixed(2);
+    }
 }
 
 const testGraph = async (ctx, next) => {
@@ -67,14 +69,15 @@ const tripFlow = async (ctx, next) => {
 
 const treeMap = async (ctx, next) => {
     let queryParams = ctx.query,
-        cbFunc = queryParams.callback;
+        cbFunc = queryParams.callback,
+        opts = {};
     // 传输参数初始化处理
-    queryParams.treeNum = queryParams.treeNum ? queryParams.treeNum : 150;
-    queryParams.searchAngle = queryParams.searchAngle ? queryParams.searchAngle : 60;
-    queryParams.seedStrength = NumberToDecimal2(queryParams.seedStrength) ? queryParams.seedStrength : '0.10';
-    queryParams.treeWidth = queryParams.treeWidth ? queryParams.treeWidth : 1;
-    queryParams.spaceInterval = queryParams.spaceInterval ? queryParams.spaceInterval : 200;
-    queryParams.lineDirection = 'from'; // queryParams.lineDirection ? queryParams.lineDirection : 'from';
+    opts.treeNum = queryParams.treeNum ? queryParams.treeNum : 150;
+    opts.searchAngle = queryParams.searchAngle ? queryParams.searchAngle : 60;
+    opts.seedStrength = queryParams.seedStrength ? NumberToDecimal2(queryParams.seedStrength) : '0.10';
+    opts.treeWidth = queryParams.treeWidth ? queryParams.treeWidth : 1;
+    opts.spaceInterval = queryParams.spaceInterval ? queryParams.spaceInterval : 200;
+    opts.lineDirection = 'from'; // queryParams.lineDirection ? queryParams.lineDirection : 'from';
 
     // console.log(queryParams.seedStrength);
     const FileName = `tmres-angle-9_${queryParams.treeNum}_${queryParams.searchAngle}_${queryParams.seedStrength}`,
