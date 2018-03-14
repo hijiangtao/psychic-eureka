@@ -67,8 +67,8 @@ const treeMap = async (ctx, next) => {
     queryParams.spaceInterval = queryParams.spaceInterval ? queryParams.spaceInterval : 200;
     queryParams.lineDirection = 'from'; // queryParams.lineDirection ? queryParams.lineDirection : 'from';
 
-    const FileName = `tmres-angle-9_${treeNum}_${searchAngle}_${seedStrength.toFixed(2)}`,
-        FilePath = `/datahouse/tripflow/${spaceInterval}/bj-byhour-res`;
+    const FileName = `tmres-angle-9_${queryParams.treeNum}_${queryParams.searchAngle}_${queryParams.seedStrength.toFixed(2)}`,
+        FilePath = `/datahouse/tripflow/${queryParams.spaceInterval}/bj-byhour-res`;
     queryParams.ResFileName = FileName;
     queryParams.ResFilePath = FilePath;
     queryParams.PyFilePath = '/home/taojiang/git/statePrediction';
