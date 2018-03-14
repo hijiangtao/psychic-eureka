@@ -1,4 +1,6 @@
 import PythonShell from 'python-shell';
+import path from 'path';
+import fs from 'fs';
 
 const ExecutePythonFile = async ({
     ResFileName,
@@ -8,7 +10,8 @@ const ExecutePythonFile = async ({
 }) => {
     return new Promise((resolve, reject) => {
         PythonShell.run(ResFileName, Options, (error, result) => {
-            if (error) reject(false);
+            // console.log(error);
+            if (error) reject(error);
             // results is an array consisting of messages collected during execution
             let file = path.resolve(PyFilePath, PyFileName),
                 ifResExist = fs.existsSync(file);
@@ -43,7 +46,14 @@ export const queryTreeMap = async (params) => {
         args: [PyFilePath, PyFilePath, hourIndex, treeNum, searchAngle, seedStrength, treeWidth, jumpLength]
     };
 
-    const result = await ExecutePythonFile(params);
-
-    return result ? result : {};
+    try {
+        const result = await ExecutePythonFile(params);
+        return result;
+    } catch (e) {
+        console.log('There was an error from PythonShell', e);
+        // console.log(e);
+        return {
+            'error': e
+        };
+    }
 }

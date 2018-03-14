@@ -18,5 +18,6 @@ export {
     queryTest,
     queryGraph,
     queryClusterDots,
-    queryTripFlow
+    queryTripFlow,
+    queryTreeMap
 }

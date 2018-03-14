@@ -12,8 +12,8 @@ import {
 import {
     mysqlParams
 } from '../../conf/db';
-let fs = require('fs');
-let path = require('path');
+import path from 'path';
+import fs from 'fs';
 
 const mysqlPool = connectMySQL(mysqlParams);
 
@@ -62,12 +62,13 @@ const treeMap = async (ctx, next) => {
     // 传输参数初始化处理
     queryParams.treeNum = queryParams.treeNum ? queryParams.treeNum : 150;
     queryParams.searchAngle = queryParams.searchAngle ? queryParams.searchAngle : 60;
-    queryParams.seedStrength = Number.parseFloat(queryParams.seedStrength) ? queryParams.seedStrength : 0.1;
+    queryParams.seedStrength = (Number.parseFloat(queryParams.seedStrength)).toFixed(2) ? queryParams.seedStrength : 0.1;
     queryParams.treeWidth = queryParams.treeWidth ? queryParams.treeWidth : 1;
     queryParams.spaceInterval = queryParams.spaceInterval ? queryParams.spaceInterval : 200;
     queryParams.lineDirection = 'from'; // queryParams.lineDirection ? queryParams.lineDirection : 'from';
 
-    const FileName = `tmres-angle-9_${queryParams.treeNum}_${queryParams.searchAngle}_${queryParams.seedStrength.toFixed(2)}`,
+    // console.log(queryParams.seedStrength);
+    const FileName = `tmres-angle-9_${queryParams.treeNum}_${queryParams.searchAngle}_${queryParams.seedStrength}`,
         FilePath = `/datahouse/tripflow/${queryParams.spaceInterval}/bj-byhour-res`;
     queryParams.ResFileName = FileName;
     queryParams.ResFilePath = FilePath;
