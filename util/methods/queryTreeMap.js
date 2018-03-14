@@ -17,7 +17,7 @@ const ExecutePythonFile = async ({
             let file = path.resolve(ResFilePath, ResFileName),
                 ifResExist = fs.existsSync(file);
             if (ifResExist) {
-                res = JSON.parse(fs.readFileSync(file));
+                const res = JSON.parse(fs.readFileSync(file));
                 resolve(res);
             }
         });
