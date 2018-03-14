@@ -24,7 +24,8 @@ const ExecutePythonFile = async ({
 }
 
 export const queryTreeMap = async (params) => {
-    const PyFilePath = params.PyFilePath;
+    const PyFilePath = params.PyFilePath,
+        PyInputPath = params.PyInputPath;
 
     const treeNum = params.treeNum,
         searchAngle = params.searchAngle,
@@ -32,7 +33,6 @@ export const queryTreeMap = async (params) => {
         treeWidth = params.treeWidth,
         spaceInterval = params.spaceInterval,
         lineDirection = params.lineDirection,
-        ResFilePath = params.ResFilePath,
         hourIndex = 9,
         jumpLength = 3;
 
@@ -41,7 +41,7 @@ export const queryTreeMap = async (params) => {
         // pythonPath: 'path/to/python',
         pythonOptions: ['-u'], // get print results in real-time
         scriptPath: PyFilePath,
-        args: [ResFilePath, ResFilePath, hourIndex, treeNum, searchAngle, seedStrength, treeWidth, jumpLength]
+        args: [PyInputPath, PyInputPath, hourIndex, treeNum, searchAngle, seedStrength, treeWidth, jumpLength]
     };
 
     try {
