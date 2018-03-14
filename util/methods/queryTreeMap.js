@@ -4,16 +4,16 @@ import fs from 'fs';
 
 const ExecutePythonFile = async ({
     ResFileName,
-    PyFilePath,
+    ResFilePath,
     PyFileName,
     Options
 }) => {
     return new Promise((resolve, reject) => {
-        PythonShell.run(ResFileName, Options, (error, result) => {
+        PythonShell.run(PyFileName, Options, (error, result) => {
             // console.log(error);
             if (error) reject(error);
             // results is an array consisting of messages collected during execution
-            let file = path.resolve(PyFilePath, PyFileName),
+            let file = path.resolve(ResFilePath, ResFileName),
                 ifResExist = fs.existsSync(file);
             if (ifResExist) {
                 res = JSON.parse(fs.readFileSync(file));
@@ -24,8 +24,7 @@ const ExecutePythonFile = async ({
 }
 
 export const queryTreeMap = async (params) => {
-    const ResFileName = params.ResFileName,
-        ResFilePath = params.ResFilePath;
+    const PyFilePath = params.PyFilePath;
 
     const treeNum = params.treeNum,
         searchAngle = params.searchAngle,
@@ -33,8 +32,7 @@ export const queryTreeMap = async (params) => {
         treeWidth = params.treeWidth,
         spaceInterval = params.spaceInterval,
         lineDirection = params.lineDirection,
-        PyFilePath = params.PyFilePath,
-        PyFileName = params.PyFileName,
+        ResFilePath = params.ResFilePath,
         hourIndex = 9,
         jumpLength = 3;
 
@@ -42,8 +40,8 @@ export const queryTreeMap = async (params) => {
         mode: 'text',
         // pythonPath: 'path/to/python',
         pythonOptions: ['-u'], // get print results in real-time
-        scriptPath: ResFilePath,
-        args: [PyFilePath, PyFilePath, hourIndex, treeNum, searchAngle, seedStrength, treeWidth, jumpLength]
+        scriptPath: PyFilePath,
+        args: [ResFilePath, ResFilePath, hourIndex, treeNum, searchAngle, seedStrength, treeWidth, jumpLength]
     };
 
     try {
