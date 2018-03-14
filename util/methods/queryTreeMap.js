@@ -13,7 +13,7 @@ const ExecutePythonFile = async ({
             // console.log(error);
             if (error) reject(error);
             // results is an array consisting of messages collected during execution
-            console.log("FileName", file);
+            // console.log("FileName", file);
             let file = path.resolve(ResFilePath, ResFileName),
                 ifResExist = fs.existsSync(file);
             if (ifResExist) {
@@ -45,9 +45,9 @@ export const queryTreeMap = async (params) => {
         args: [PyInputPath, PyInputPath, hourIndex, treeNum, searchAngle, seedStrength, treeWidth, jumpLength]
     };
 
+    let result = {};
     try {
-        const result = await ExecutePythonFile(params);
-        return result;
+        result = await ExecutePythonFile(params);
     } catch (e) {
         console.log('There was an error from PythonShell', e);
         // console.log(e);
@@ -55,4 +55,5 @@ export const queryTreeMap = async (params) => {
             'error': e
         };
     }
+    return result;
 }
