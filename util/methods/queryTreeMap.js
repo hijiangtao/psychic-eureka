@@ -13,6 +13,7 @@ const ExecutePythonFile = async ({
             // console.log(error);
             if (error) reject(error);
             // results is an array consisting of messages collected during execution
+            console.log("FileName", file);
             let file = path.resolve(ResFilePath, ResFileName),
                 ifResExist = fs.existsSync(file);
             if (ifResExist) {

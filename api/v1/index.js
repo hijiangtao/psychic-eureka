@@ -70,6 +70,7 @@ const treeMap = async (ctx, next) => {
     // console.log(queryParams.seedStrength);
     const FileName = `tmres-angle-9_${queryParams.treeNum}_${queryParams.searchAngle}_${queryParams.seedStrength}`,
         FilePath = `/datahouse/tripflow/${queryParams.spaceInterval}/bj-byhour-res`;
+
     queryParams.PyInputPath = `/datahouse/tripflow/${queryParams.spaceInterval}`;
     queryParams.ResFileName = FileName;
     queryParams.ResFilePath = FilePath;
