@@ -18,7 +18,7 @@ import fs from 'fs';
 const mysqlPool = connectMySQL(mysqlParams);
 
 const NumberToDecimal2 = (num) => {
-    let num = Number.parseFloat(num);
+    num = Number.parseFloat(num);
 
     return num.toFixed(2);
 }
@@ -86,7 +86,7 @@ const treeMap = async (ctx, next) => {
     let file = path.resolve(FilePath, FileName),
         ifResExist = fs.existsSync(file);
 
-    // console.log("Resul File exist: ", ifResExist)
+    console.log("queryParams.seedStrength: ", queryParams.seedStrength)
     let res = ifResExist ? JSON.parse(fs.readFileSync(file)) : await queryTreeMap(queryParams);
 
 
