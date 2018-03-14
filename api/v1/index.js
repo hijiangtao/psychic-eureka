@@ -60,16 +60,19 @@ const treeMap = async (ctx, next) => {
     let queryParams = ctx.query,
         cbFunc = queryParams.callback;
     // 传输参数初始化处理
-    const treeNum = queryParams.treeNum ? queryParams.treeNum : 150,
-        searchAngle = queryParams.searchAngle ? queryParams.searchAngle : 60,
-        seedStrength = queryParams.seedStrength ? queryParams.seedStrength : 0.1,
-        spaceInterval = queryParams.spaceInterval ? queryParams.spaceInterval : 200,
-        lineDirection = 'from'; // queryParams.lineDirection ? queryParams.lineDirection : 'from';
+    queryParams.treeNum = queryParams.treeNum ? queryParams.treeNum : 150;
+    queryParams.searchAngle = queryParams.searchAngle ? queryParams.searchAngle : 60;
+    queryParams.seedStrength = Number.parseFloat(queryParams.seedStrength) ? queryParams.seedStrength : 0.1;
+    queryParams.treeWidth = queryParams.treeWidth ? queryParams.treeWidth : 1;
+    queryParams.spaceInterval = queryParams.spaceInterval ? queryParams.spaceInterval : 200;
+    queryParams.lineDirection = 'from'; // queryParams.lineDirection ? queryParams.lineDirection : 'from';
 
-    const FileName = `tmres-angle-9_${treeNum}_${searchAngle}_${seedStrength}_${spaceInterval}`,
-        FilePath = '/datahouse/taojiang/bj-byhour-res';
+    const FileName = `tmres-angle-9_${treeNum}_${searchAngle}_${seedStrength.toFixed(2)}`,
+        FilePath = `/datahouse/tripflow/${spaceInterval}/bj-byhour-res`;
     queryParams.ResFileName = FileName;
     queryParams.ResFilePath = FilePath;
+    queryParams.PyFilePath = '/home/taojiang/git/statePrediction';
+    queryParams.PyFileName = 'treeMapCal.py';
 
     let file = path.resolve(FilePath, FileName),
         ifResExist = fs.existsSync(file);

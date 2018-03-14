@@ -1,14 +1,16 @@
 import PythonShell from 'python-shell';
 
 const ExecutePythonFile = async ({
-    FileName,
+    ResFileName,
+    PyFilePath,
+    PyFileName,
     Options
 }) => {
     return new Promise((resolve, reject) => {
-        PythonShell.run(FileName, Options, (error, result) => {
+        PythonShell.run(ResFileName, Options, (error, result) => {
             if (error) reject(false);
             // results is an array consisting of messages collected during execution
-            let file = path.resolve(Options.scriptPath, FileName),
+            let file = path.resolve(PyFilePath, PyFileName),
                 ifResExist = fs.existsSync(file);
             if (ifResExist) {
                 res = JSON.parse(fs.readFileSync(file));
@@ -21,18 +23,27 @@ const ExecutePythonFile = async ({
 export const queryTreeMap = async (params) => {
     const ResFileName = params.ResFileName,
         ResFilePath = params.ResFilePath;
-    let Options = {
+
+    const treeNum = params.treeNum,
+        searchAngle = params.searchAngle,
+        seedStrength = params.seedStrength,
+        treeWidth = params.treeWidth,
+        spaceInterval = params.spaceInterval,
+        lineDirection = params.lineDirection,
+        PyFilePath = params.PyFilePath,
+        PyFileName = params.PyFileName,
+        hourIndex = 9,
+        jumpLength = 3;
+
+    params.Options = {
         mode: 'text',
         // pythonPath: 'path/to/python',
-        // pythonOptions: ['-u'], // get print results in real-time
+        pythonOptions: ['-u'], // get print results in real-time
         scriptPath: ResFilePath,
-        args: ['value1', 'value2', 'value3']
+        args: [PyFilePath, PyFilePath, hourIndex, treeNum, searchAngle, seedStrength, treeWidth, jumpLength]
     };
 
-    const result = await ExecutePythonFile({
-        ResFileName,
-        Options
-    });
+    const result = await ExecutePythonFile(params);
 
     return result ? result : {};
 }
