@@ -51,9 +51,10 @@ export const queryTreeMap = async (params) => {
     } catch (e) {
         console.log('There was an error from PythonShell', e);
         // console.log(e);
-        return {
+        result = {
             'error': e
         };
+    } finally {
+        return result;
     }
-    return result;
 }
