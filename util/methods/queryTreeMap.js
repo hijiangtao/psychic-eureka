@@ -19,6 +19,8 @@ const ExecutePythonFile = async ({
             if (ifResExist) {
                 const res = JSON.parse(fs.readFileSync(file));
                 resolve(res);
+            } else {
+                reject("No data of this timeSegID!");
             }
         });
     })
@@ -34,15 +36,17 @@ export const queryTreeMap = async (params) => {
         treeWidth = params.treeWidth,
         spaceInterval = params.spaceInterval,
         lineDirection = params.lineDirection,
-        hourIndex = 9,
-        jumpLength = params.jumpLength;
+        timeSegID = queryParams.timeSegID,
+        jumpLength = params.jumpLength,
+        seedUnit = params.seedUnit,
+        gridDirNum = params.gridDirNum;
 
     params.Options = {
         mode: 'text',
         // pythonPath: 'path/to/python',
         pythonOptions: ['-u'], // get print results in real-time
         scriptPath: PyFilePath,
-        args: [PyInputPath, PyInputPath, hourIndex, treeNumRate, searchAngle, seedStrength, treeWidth, jumpLength]
+        args: [PyInputPath, PyInputPath, timeSegID, treeNumRate, searchAngle, seedStrength, treeWidth, jumpLength, seedUnit, gridDirNum]
     };
 
     let result = {};

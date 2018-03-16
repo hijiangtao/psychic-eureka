@@ -6,7 +6,7 @@ import mysql from 'mysql';
  * MySQL pool 建立函数
  * @param {*} props 
  */
-const connectMySQL = (props) => {
+export const connectMySQL = (props) => {
     const {
         connectionLimit,
         host,
@@ -28,7 +28,7 @@ const connectMySQL = (props) => {
  * connection 建立函数
  * @param {*} pool 
  */
-const connMySQL = async (pool) => {
+export const connMySQL = async (pool) => {
     return new Promise((resolve, reject) => {
         pool.getConnection((err, connection) => {
             if (err) {
@@ -40,7 +40,7 @@ const connMySQL = async (pool) => {
     });
 }
 
-const connMongo = async (MongoClient, url, dbname) => {
+export const connMongo = async (MongoClient, url, dbname) => {
     return new Promise((resolve, reject) => {
         MongoClient.connect(url, (err, client) => {
             console.log("Connected successfully to server");
@@ -62,7 +62,7 @@ const connMongo = async (MongoClient, url, dbname) => {
  * @param {*} data 
  * @param {*} params 
  */
-const jsonpTransfer = (data, params) => {
+export const jsonpTransfer = (data, params) => {
     const callback = params.callback;
     if (callback) {
         return `${callback}(${JSON.stringify(data)})`;
@@ -78,7 +78,7 @@ const jsonpTransfer = (data, params) => {
  * @param {*} params 入参
  * @param {*} func 默认为 false 即 type 对应语句为字符串，否则为函数，函数入参为 func 值
  */
-const queryMySQLElements = async (conn, type, params, func = false) => {
+export const queryMySQLElements = async (conn, type, params, func = false) => {
     return new Promise((resolve, reject) => {
         let query = func ? $sql[type](func) : $sql[type];
         conn.query(query, params, (err, res) => {
@@ -91,10 +91,16 @@ const queryMySQLElements = async (conn, type, params, func = false) => {
     })
 }
 
-export {
-    connectMySQL,
-    connMySQL,
-    connMongo,
-    jsonpTransfer,
-    queryMySQLElements
-};
+/**
+ * 将普通数值字符串转化为保留两位小数的字符串
+ * @param {String or Number} num 
+ */
+export const NumberToDecimal2 = (num) => {
+    try {
+        num = Number.parseFloat(num);
+    } catch (error) {
+        num = 0.10;
+    } finally {
+        return num.toFixed(2);
+    }
+}

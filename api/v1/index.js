@@ -1,6 +1,7 @@
 import {
     connectMySQL,
-    jsonpTransfer
+    jsonpTransfer,
+    NumberToDecimal2
 } from '../../util/base';
 import {
     queryGraph,
@@ -16,17 +17,6 @@ import path from 'path';
 import fs from 'fs';
 
 const mysqlPool = connectMySQL(mysqlParams);
-
-const NumberToDecimal2 = (num) => {
-    // console.log("Original: ", num);
-    try {
-        num = Number.parseFloat(num);
-    } catch (error) {
-        num = 0.10;
-    } finally {
-        return num.toFixed(2);
-    }
-}
 
 const testGraph = async (ctx, next) => {
     ctx.body = await queryTest(mysqlPool);
@@ -67,34 +57,49 @@ const tripFlow = async (ctx, next) => {
     return ctx.body = jsonpTransfer(res, queryParams);
 }
 
-const treeMap = async (ctx, next) => {
-    let queryParams = ctx.query,
-        cbFunc = queryParams.callback;
-    // 传输参数初始化处理
-    queryParams.treeNumRate = queryParams.treeNumRate ? queryParams.treeNumRate : '0.1';
-    queryParams.searchAngle = queryParams.searchAngle ? queryParams.searchAngle : 60;
-    queryParams.seedStrength = queryParams.seedStrength ? NumberToDecimal2(queryParams.seedStrength) : '0.10';
-    queryParams.treeWidth = queryParams.treeWidth ? queryParams.treeWidth : 1;
-    queryParams.spaceInterval = queryParams.spaceInterval ? queryParams.spaceInterval : 200;
-    queryParams.jumpLength = queryParams.jumpLength ? queryParams.jumpLength : 3;
-    queryParams.lineDirection = 'from'; // queryParams.lineDirection ? queryParams.lineDirection : 'from';
+/**
+ * treeMap 传输参数初始化处理
+ * @param {*} queryParams 
+ */
+const initTreeMapParams = (queryParams) => {
+    let res = {}
+
+    res.timeSegID = queryParams.timeSegID ? queryParams.timeSegID : '9';
+    res.treeNumRate = queryParams.treeNumRate ? queryParams.treeNumRate : '0.1';
+    res.searchAngle = queryParams.searchAngle ? queryParams.searchAngle : 60;
+    res.seedStrength = queryParams.seedStrength ? NumberToDecimal2(queryParams.seedStrength) : '0.10';
+    res.treeWidth = queryParams.treeWidth ? queryParams.treeWidth : 1;
+    res.spaceInterval = queryParams.spaceInterval ? queryParams.spaceInterval : 200;
+    res.jumpLength = queryParams.jumpLength ? queryParams.jumpLength : 3;
+    res.lineDirection = 'from'; // queryParams.lineDirection ? queryParams.lineDirection : 'from';
+    res.seedUnit = queryParams.seedUnit ? queryParams.seedUnit : 'basic';
+    res.gridDirNum = queryParams.gridDirNum ? queryParams.gridDirNum : -1;
 
     // console.log(queryParams.seedStrength);
-    const FileName = `tmres-angle-9_${queryParams.treeNumRate}_${queryParams.searchAngle}_${queryParams.seedStrength}_${queryParams.treeWidth}_${queryParams.jumpLength}`,
-        FilePath = `/datahouse/tripflow/${queryParams.spaceInterval}/bj-byhour-res`;
+    const FileName = `tmres-angle-${res.timeSegID}_${res.treeNumRate}_${res.searchAngle}_${res.seedStrength}_${res.treeWidth}_${res.jumpLength}`,
+        FilePath = `/datahouse/tripflow/${res.spaceInterval}/bj-byhour-res`;
 
-    queryParams.PyInputPath = `/datahouse/tripflow/${queryParams.spaceInterval}`;
-    queryParams.ResFileName = FileName;
-    queryParams.ResFilePath = FilePath;
-    queryParams.PyFilePath = '/home/taojiang/git/statePrediction';
-    queryParams.PyFileName = 'treeMapCal.py';
+    res.PyInputPath = `/datahouse/tripflow/${res.spaceInterval}`;
+    res.ResFileName = FileName;
+    res.ResFilePath = FilePath;
+    res.PyFilePath = '/home/taojiang/git/statePrediction';
+    res.PyFileName = 'treeMapCal.py';
 
-    let file = path.resolve(FilePath, FileName),
+    return res;
+}
+
+const treeMap = async (ctx, next) => {
+    let params = ctx.query,
+        cbFunc = params.callback;
+
+    const queryParams = initTreeMapParams(params);
+
+    let file = path.resolve(queryParams.ResFilePath, queryParams.ResFileName),
         ifResExist = fs.existsSync(file);
 
     console.log("queryParams.seedStrength: ", queryParams.seedStrength)
-    let res = ifResExist ? JSON.parse(fs.readFileSync(file)) : await queryTreeMap(queryParams);
-
+    // let res = ifResExist ? JSON.parse(fs.readFileSync(file)) : await queryTreeMap(queryParams);
+    let res = await queryTreeMap(queryParams);
 
     return ctx.body = jsonpTransfer(res, queryParams);
 }
