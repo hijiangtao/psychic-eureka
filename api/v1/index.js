@@ -65,7 +65,7 @@ const initTreeMapParams = (queryParams) => {
     let res = {}
 
     res.timeSegID = queryParams.timeSegID ? queryParams.timeSegID : '9';
-    res.treeNumRate = queryParams.treeNumRate ? queryParams.treeNumRate : '0.1';
+    res.treeNumRate = queryParams.treeNumRate ? NumberToDecimal2(queryParams.treeNumRate) : '0.10';
     res.searchAngle = queryParams.searchAngle ? queryParams.searchAngle : 60;
     res.seedStrength = queryParams.seedStrength ? NumberToDecimal2(queryParams.seedStrength) : '0.10';
     res.treeWidth = queryParams.treeWidth ? queryParams.treeWidth : 1;
