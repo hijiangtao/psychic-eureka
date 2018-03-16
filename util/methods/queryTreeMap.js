@@ -28,21 +28,21 @@ export const queryTreeMap = async (params) => {
     const PyFilePath = params.PyFilePath,
         PyInputPath = params.PyInputPath;
 
-    const treeNum = params.treeNum,
+    const treeNumRate = params.treeNumRate,
         searchAngle = params.searchAngle,
         seedStrength = params.seedStrength,
         treeWidth = params.treeWidth,
         spaceInterval = params.spaceInterval,
         lineDirection = params.lineDirection,
         hourIndex = 9,
-        jumpLength = 3;
+        jumpLength = params.jumpLength;
 
     params.Options = {
         mode: 'text',
         // pythonPath: 'path/to/python',
         pythonOptions: ['-u'], // get print results in real-time
         scriptPath: PyFilePath,
-        args: [PyInputPath, PyInputPath, hourIndex, treeNum, searchAngle, seedStrength, treeWidth, jumpLength]
+        args: [PyInputPath, PyInputPath, hourIndex, treeNumRate, searchAngle, seedStrength, treeWidth, jumpLength]
     };
 
     let result = {};

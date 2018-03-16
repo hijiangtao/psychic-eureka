@@ -71,15 +71,16 @@ const treeMap = async (ctx, next) => {
     let queryParams = ctx.query,
         cbFunc = queryParams.callback;
     // 传输参数初始化处理
-    queryParams.treeNum = queryParams.treeNum ? queryParams.treeNum : 150;
+    queryParams.treeNumRate = queryParams.treeNumRate ? queryParams.treeNumRate : '0.1';
     queryParams.searchAngle = queryParams.searchAngle ? queryParams.searchAngle : 60;
     queryParams.seedStrength = queryParams.seedStrength ? NumberToDecimal2(queryParams.seedStrength) : '0.10';
     queryParams.treeWidth = queryParams.treeWidth ? queryParams.treeWidth : 1;
     queryParams.spaceInterval = queryParams.spaceInterval ? queryParams.spaceInterval : 200;
+    queryParams.jumpLength = queryParams.jumpLength ? queryParams.jumpLength : 3;
     queryParams.lineDirection = 'from'; // queryParams.lineDirection ? queryParams.lineDirection : 'from';
 
     // console.log(queryParams.seedStrength);
-    const FileName = `tmres-angle-9_${queryParams.treeNum}_${queryParams.searchAngle}_${queryParams.seedStrength}_${queryParams.treeWidth}`,
+    const FileName = `tmres-angle-9_${queryParams.treeNumRate}_${queryParams.searchAngle}_${queryParams.seedStrength}_${queryParams.treeWidth}_${queryParams.jumpLength}`,
         FilePath = `/datahouse/tripflow/${queryParams.spaceInterval}/bj-byhour-res`;
 
     queryParams.PyInputPath = `/datahouse/tripflow/${queryParams.spaceInterval}`;
