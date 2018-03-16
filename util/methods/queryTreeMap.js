@@ -36,7 +36,7 @@ export const queryTreeMap = async (params) => {
         treeWidth = params.treeWidth,
         spaceInterval = params.spaceInterval,
         lineDirection = params.lineDirection,
-        timeSegID = queryParams.timeSegID,
+        timeSegID = params.timeSegID,
         jumpLength = params.jumpLength,
         seedUnit = params.seedUnit,
         gridDirNum = params.gridDirNum;
