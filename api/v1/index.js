@@ -76,7 +76,7 @@ const initTreeMapParams = (queryParams) => {
     res.gridDirNum = queryParams.gridDirNum ? queryParams.gridDirNum : -1;
 
     // console.log(queryParams.seedStrength);
-    const FileName = `tmres-angle-${res.timeSegID}_${res.treeNumRate}_${res.searchAngle}_${res.seedStrength}_${res.treeWidth}_${res.jumpLength}`,
+    const FileName = `tmres-angle-${res.timeSegID}_${res.treeNumRate}_${res.searchAngle}_${res.seedStrength}_${res.treeWidth}_${res.jumpLength}_${res.seedUnit}_${res.gridDirNum}`,
         FilePath = `/datahouse/tripflow/${res.spaceInterval}/bj-byhour-res`;
 
     res.PyInputPath = `/datahouse/tripflow/${res.spaceInterval}`;
