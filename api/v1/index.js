@@ -101,7 +101,7 @@ const treeMap = async (ctx, next) => {
     // let res = ifResExist ? JSON.parse(fs.readFileSync(file)) : await queryTreeMap(queryParams);
     let res = await queryTreeMap(queryParams);
 
-    return ctx.body = jsonpTransfer(res, queryParams);
+    return ctx.body = jsonpTransfer(res, params);
 }
 
 export {
