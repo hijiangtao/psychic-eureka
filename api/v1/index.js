@@ -71,6 +71,8 @@ const initTreeMapParams = (queryParams) => {
     res.treeWidth = queryParams.treeWidth ? queryParams.treeWidth : 1;
     res.spaceInterval = queryParams.spaceInterval ? queryParams.spaceInterval : 200;
     res.jumpLength = queryParams.jumpLength ? queryParams.jumpLength : 3;
+    res.jumpLength = res.treeWidth > 1 ? 1 : res.jumpLength;
+
     res.lineDirection = 'from'; // queryParams.lineDirection ? queryParams.lineDirection : 'from';
     res.seedUnit = queryParams.seedUnit ? queryParams.seedUnit : 'basic';
     res.gridDirNum = queryParams.gridDirNum ? queryParams.gridDirNum : -1;
