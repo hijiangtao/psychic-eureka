@@ -1,6 +1,8 @@
 import $sql from '../conf/sql';
 import mysql from 'mysql';
-// let mysql = require('mysql');
+import PythonShell from 'python-shell';
+import path from 'path';
+import fs from 'fs';
 
 /**
  * MySQL pool 建立函数
@@ -103,4 +105,32 @@ export const NumberToDecimal2 = (num) => {
     } finally {
         return num.toFixed(2);
     }
+}
+
+/**
+ * 执行 Python 脚本并检查返回正确结果文件数据
+ * @param {*} param0 
+ */
+export const ExecutePythonFile = async ({
+    ResFileName,
+    ResFilePath,
+    PyFileName,
+    Options
+}) => {
+    return new Promise((resolve, reject) => {
+        PythonShell.run(PyFileName, Options, (error, result) => {
+            // console.log(error);
+            if (error) reject(error);
+            // results is an array consisting of messages collected during execution
+            // console.log("FileName", file);
+            let file = path.resolve(ResFilePath, ResFileName),
+                ifResExist = fs.existsSync(file);
+            if (ifResExist) {
+                const res = JSON.parse(fs.readFileSync(file));
+                resolve(res);
+            } else {
+                reject("No data of this timeSegID!");
+            }
+        });
+    })
 }

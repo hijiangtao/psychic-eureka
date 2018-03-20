@@ -13,11 +13,15 @@ import {
 import {
     queryTreeMap
 } from './methods/queryTreeMap';
+import {
+    queryAngleClusterStats
+} from './methods/queryAngleClusterStats';
 
 export {
     queryTest,
     queryGraph,
     queryClusterDots,
     queryTripFlow,
-    queryTreeMap
+    queryTreeMap,
+    queryAngleClusterStats
 }

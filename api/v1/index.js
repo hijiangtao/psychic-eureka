@@ -8,11 +8,16 @@ import {
     queryTest,
     queryClusterDots,
     queryTripFlow,
-    queryTreeMap
+    queryTreeMap,
+    queryAngleClusterStats
 } from '../../util/agg-utils';
 import {
     mysqlParams
 } from '../../conf/db';
+import {
+    initAngleClusterParams,
+    initTreeMapParams
+} from '../../util/params';
 import path from 'path';
 import fs from 'fs';
 
@@ -57,39 +62,6 @@ const tripFlow = async (ctx, next) => {
     return ctx.body = jsonpTransfer(res, queryParams);
 }
 
-/**
- * treeMap 传输参数初始化处理
- * @param {*} queryParams 
- */
-const initTreeMapParams = (queryParams) => {
-    let res = {}
-
-    res.timeSegID = queryParams.timeSegID ? queryParams.timeSegID : '9';
-    res.treeNumRate = queryParams.treeNumRate ? NumberToDecimal2(queryParams.treeNumRate) : '0.10';
-    res.searchAngle = queryParams.searchAngle ? queryParams.searchAngle : 60;
-    res.seedStrength = queryParams.seedStrength ? NumberToDecimal2(queryParams.seedStrength) : '0.10';
-    res.treeWidth = queryParams.treeWidth ? queryParams.treeWidth : 1;
-    res.spaceInterval = queryParams.spaceInterval ? queryParams.spaceInterval : 200;
-    res.jumpLength = queryParams.jumpLength ? queryParams.jumpLength : 3;
-    res.jumpLength = res.treeWidth > 1 ? 1 : res.jumpLength;
-
-    res.lineDirection = 'from'; // queryParams.lineDirection ? queryParams.lineDirection : 'from';
-    res.seedUnit = queryParams.seedUnit ? queryParams.seedUnit : 'basic';
-    res.gridDirNum = queryParams.gridDirNum ? queryParams.gridDirNum : -1;
-
-    // console.log(queryParams.seedStrength);
-    const FileName = `tmres-angle-${res.timeSegID}_${res.treeNumRate}_${res.searchAngle}_${res.seedStrength}_${res.treeWidth}_${res.jumpLength}_${res.seedUnit}_${res.gridDirNum}`,
-        FilePath = `/datahouse/tripflow/${res.spaceInterval}/bj-byhour-res`;
-
-    res.PyInputPath = `/datahouse/tripflow/${res.spaceInterval}`;
-    res.ResFileName = FileName;
-    res.ResFilePath = FilePath;
-    res.PyFilePath = '/home/taojiang/git/statePrediction';
-    res.PyFileName = 'treeMapCal.py';
-
-    return res;
-}
-
 const treeMap = async (ctx, next) => {
     let params = ctx.query,
         cbFunc = params.callback;
@@ -106,10 +78,21 @@ const treeMap = async (ctx, next) => {
     return ctx.body = jsonpTransfer(res, params);
 }
 
+const angleClusterStats = async (ctx, next) => {
+    let params = ctx.query,
+        cbFunc = params.callback;
+
+    const queryParams = initAngleClusterParams(params);
+
+    const res = await queryAngleClusterStats(queryParams);
+    return ctx.body = jsonpTransfer(res, params);
+}
+
 export {
     testGraph,
     basicGraph,
     clusterDots,
     tripFlow,
-    treeMap
+    treeMap,
+    angleClusterStats
 }

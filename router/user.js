@@ -9,6 +9,7 @@ router
     .all('/basicGraph', api.basicGraph)
     .all('/clusterDots', api.clusterDots)
     .all('/tripFlow', api.tripFlow)
-    .all('/treeMap', api.treeMap);
+    .all('/treeMap', api.treeMap)
+    .all('/angleClusterStats', api.angleClusterStats);
 
 module.exports = router;

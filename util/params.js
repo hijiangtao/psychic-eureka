@@ -40,3 +40,56 @@ export const SQLParams = {
         },
     }
 }
+
+/**
+ * treeMap 传输参数初始化处理
+ * @param {*} queryParams 
+ */
+export const initTreeMapParams = (queryParams) => {
+    let res = {}
+
+    res.timeSegID = queryParams.timeSegID ? queryParams.timeSegID : '9';
+    res.treeNumRate = queryParams.treeNumRate ? NumberToDecimal2(queryParams.treeNumRate) : '0.10';
+    res.searchAngle = queryParams.searchAngle ? queryParams.searchAngle : 60;
+    res.seedStrength = queryParams.seedStrength ? NumberToDecimal2(queryParams.seedStrength) : '0.10';
+    res.treeWidth = queryParams.treeWidth ? queryParams.treeWidth : 1;
+    res.spaceInterval = queryParams.spaceInterval ? queryParams.spaceInterval : 200;
+    res.jumpLength = queryParams.jumpLength ? queryParams.jumpLength : 3;
+    res.jumpLength = res.treeWidth > 1 ? 1 : res.jumpLength;
+
+    res.lineDirection = 'from'; // queryParams.lineDirection ? queryParams.lineDirection : 'from';
+    res.seedUnit = queryParams.seedUnit ? queryParams.seedUnit : 'basic';
+    res.gridDirNum = queryParams.gridDirNum ? queryParams.gridDirNum : -1;
+
+    // console.log(queryParams.seedStrength);
+    const FileName = `tmres-angle-${res.timeSegID}_${res.treeNumRate}_${res.searchAngle}_${res.seedStrength}_${res.treeWidth}_${res.jumpLength}_${res.seedUnit}_${res.gridDirNum}`,
+        FilePath = `/datahouse/tripflow/${res.spaceInterval}/bj-byhour-res`;
+
+    res.PyInputPath = `/datahouse/tripflow/${res.spaceInterval}`;
+    res.ResFileName = FileName;
+    res.ResFilePath = FilePath;
+    res.PyFilePath = '/home/taojiang/git/statePrediction';
+    res.PyFileName = 'treeMapCal.py';
+
+    return res;
+}
+
+/**
+ * 初始化角度聚类结果查询参数
+ * @param {*} params 
+ */
+export const initAngleClusterParams = (params) => {
+    let res = {};
+
+    res.timeSegID = params.timeSegID ? params.timeSegID : '9';
+    res.eps = params.eps ? params.eps : 2.5;
+    res.min_samples = params.min_samples ? params.min_samples : 300;
+
+    res.PyInputPath = '/datahouse/tripflow/200';
+    res.ResFileName = `acres-${res.timeSegID}`;
+    res.ResFilePath = '/datahouse/tripflow/200/bj-byhour-res';
+    res.PyFilePath = '/home/taojiang/git/statePrediction';
+    res.PyFileName = 'angleClusterCal.py';
+
+    return res;
+}
