@@ -6,7 +6,7 @@ import {
 } from '../base';
 
 const reverseSort = (a, b) => {
-    return b - a;
+    return b[3] - a[3];
 }
 
 const optCSV = (file) => {
