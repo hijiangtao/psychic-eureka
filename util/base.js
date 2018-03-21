@@ -120,3 +120,33 @@ export const ExecutePythonFile = async ({
         });
     })
 }
+
+export const parseFormatGID = (gid) => {
+    const LngSPLIT = 0.0064,
+        LatSPLIT = 0.005,
+        locs = {
+            'north': 41.0500,
+            'south': 39.4570,
+            'west': 115.4220,
+            'east': 117.5000
+        };
+
+    const id = Number.parseInt(gid)
+    LNGNUM = Number.parseInt((locs['east'] - locs['west']) / LngSPLIT + 1)
+
+    latind = Number.parseInt(id / LNGNUM)
+    lngind = id - latind * LNGNUM
+
+    lat = (locs['south'] + latind * LatSPLIT)
+    lng = (locs['west'] + lngind * LngSPLIT)
+    lngcen = (lng + LngSPLIT / 2.0)
+    latcen = (lat + LatSPLIT / 2.0)
+
+    return {
+        'lat': latcen,
+        'lng': lngcen,
+        'gid': id,
+        'y': latind,
+        'x': lngind
+    }
+}

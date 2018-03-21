@@ -1,7 +1,6 @@
 import {
     connectMySQL,
-    jsonpTransfer,
-    NumberToDecimal2
+    jsonpTransfer
 } from '../../util/base';
 import {
     queryGraph,
@@ -9,14 +8,16 @@ import {
     queryClusterDots,
     queryTripFlow,
     queryTreeMap,
-    queryAngleClusterStats
+    queryAngleClusterStats,
+    queryAbnormalStats
 } from '../../util/agg-utils';
 import {
     mysqlParams
 } from '../../conf/db';
 import {
     initAngleClusterParams,
-    initTreeMapParams
+    initTreeMapParams,
+    initAbnormalStatsParams
 } from '../../util/params';
 import path from 'path';
 import fs from 'fs';
@@ -88,11 +89,22 @@ const angleClusterStats = async (ctx, next) => {
     return ctx.body = jsonpTransfer(res, params);
 }
 
+const abnormalStats = async (ctx, next) => {
+    let params = ctx.query,
+        cbFunc = params.callback;
+
+    const queryParams = initAbnormalStatsParams(params);
+
+    const res = await queryAbnormalStats(queryParams);
+    return ctx.body = jsonpTransfer(res, params);
+}
+
 export {
     testGraph,
     basicGraph,
     clusterDots,
     tripFlow,
     treeMap,
-    angleClusterStats
+    angleClusterStats,
+    abnormalStats
 }

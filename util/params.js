@@ -107,3 +107,14 @@ export const initAngleClusterParams = (params) => {
 
     return res;
 }
+
+export const initAbnormalStatsParams = (params) => {
+    let res = {};
+
+    res.timeSegID = params.timeSegID ? params.timeSegID : '9';
+    res.hourID = params.hourID ? params.hourID : '9';
+    res.ResFileName = `ano-${res.hourID}-${res.timeSegID}`;
+    res.ResFilePath = '/datahouse/tripflow/ano_detect/200/bj-byhour-ano';
+
+    return res;
+}

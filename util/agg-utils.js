@@ -16,6 +16,9 @@ import {
 import {
     queryAngleClusterStats
 } from './methods/queryAngleClusterStats';
+import {
+    queryAbnormalStats
+} from './methods/queryAbnormalStats';
 
 export {
     queryTest,
@@ -23,5 +26,6 @@ export {
     queryClusterDots,
     queryTripFlow,
     queryTreeMap,
-    queryAngleClusterStats
+    queryAngleClusterStats,
+    queryAbnormalStats
 }
