@@ -42,6 +42,20 @@ export const SQLParams = {
 }
 
 /**
+ * 将普通数值字符串转化为保留两位小数的字符串
+ * @param {String or Number} num 
+ */
+export const NumberToDecimal2 = (num) => {
+    try {
+        num = Number.parseFloat(num);
+    } catch (error) {
+        num = 0.10;
+    } finally {
+        return num.toFixed(2);
+    }
+}
+
+/**
  * treeMap 传输参数初始化处理
  * @param {*} queryParams 
  */

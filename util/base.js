@@ -94,20 +94,6 @@ export const queryMySQLElements = async (conn, type, params, func = false) => {
 }
 
 /**
- * 将普通数值字符串转化为保留两位小数的字符串
- * @param {String or Number} num 
- */
-export const NumberToDecimal2 = (num) => {
-    try {
-        num = Number.parseFloat(num);
-    } catch (error) {
-        num = 0.10;
-    } finally {
-        return num.toFixed(2);
-    }
-}
-
-/**
  * 执行 Python 脚本并检查返回正确结果文件数据
  * @param {*} param0 
  */
