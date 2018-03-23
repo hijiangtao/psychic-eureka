@@ -113,8 +113,11 @@ export const initAbnormalStatsParams = (params) => {
 
     res.timeSegID = params.timeSegID ? params.timeSegID : '9';
     res.hourID = params.hourID ? params.hourID : '9';
-    res.ResFileName = `ano-${res.hourID}-${res.timeSegID}`;
-    res.ResFilePath = '/datahouse/tripflow/ano_detect/200/bj-byhour-ano';
+    res.type = params.type ? params.type : 'flow';
+    res.AnoResFileName = `ano-${res.hourID}-${res.timeSegID}`;
+    res.AnoResFilePath = '/datahouse/tripflow/ano_detect/200/bj-byhour-ano';
+    res.RecResFileName = `ano-${res.hourID}-${res.timeSegID}`;
+    res.RecResFilePath = '/datahouse/tripflow/ano_detect/200/bj-byhour-ano';
 
     return res;
 }
