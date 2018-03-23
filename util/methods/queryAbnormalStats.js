@@ -10,8 +10,8 @@ import {
  * @param {*} a 
  * @param {*} b 
  */
-const reverseSort = (a, b) => {
-    return (index) => {
+const reverseSort = (index) => {
+    return (a, b) => {
         return b[index] - a[index];
     }
 }
