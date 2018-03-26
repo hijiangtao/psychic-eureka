@@ -84,6 +84,7 @@ export const initTreeMapParams = (queryParams) => {
     res.ResFilePath = FilePath;
     res.PyFilePath = '/home/taojiang/git/statePrediction';
     res.PyFileName = 'treeMapCal.py';
+    res.delta = queryParams.delta ? queryParams.delta : 1;
 
     return res;
 }
@@ -108,6 +109,10 @@ export const initAngleClusterParams = (params) => {
     return res;
 }
 
+/**
+ * 初始化异常检测以及流量分布的输入参数
+ * @param {*} param0 
+ */
 export const initAbnormalStatsParams = (params) => {
     let res = {};
 

@@ -56,12 +56,16 @@ const optCSV = (file, cols) => {
     });
 }
 
+/**
+ * 异常值查询数据列对应查询表
+ */
 const abnormalNameList = {
     'flow': [1, 2],
     'record': [-1],
     'ano1': [3, 4],
-    'ano2': [5, 6],
+    'ano2': [5, 6]
 }
+
 
 export const queryAbnormalStats = async ({
     AnoResFileName,

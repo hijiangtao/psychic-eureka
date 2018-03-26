@@ -72,7 +72,7 @@ const treeMap = async (ctx, next) => {
     let file = path.resolve(queryParams.ResFilePath, queryParams.ResFileName),
         ifResExist = fs.existsSync(file);
 
-    console.log("queryParams.seedStrength: ", queryParams.seedStrength)
+    // console.log("queryParams.seedStrength: ", queryParams.seedStrength)
     // let res = ifResExist ? JSON.parse(fs.readFileSync(file)) : await queryTreeMap(queryParams);
     let res = await queryTreeMap(queryParams);
 
