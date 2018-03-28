@@ -84,7 +84,7 @@ export const initTreeMapParams = (queryParams) => {
     res.ResFilePath = FilePath;
     res.PyFilePath = '/home/taojiang/git/statePrediction';
     res.PyFileName = 'treeMapCal.py';
-    res.delta = queryParams.delta ? queryParams.delta : 1;
+    res.delta = queryParams.delta ? queryParams.delta : -1.0;
 
     return res;
 }
