@@ -16,14 +16,15 @@ export const queryTreeMap = async (params) => {
         jumpLength = params.jumpLength,
         seedUnit = params.seedUnit,
         gridDirNum = params.gridDirNum,
-        delta = params.delta;
+        delta = params.delta,
+        maxDistance = params.maxDistance;
 
     params.Options = {
         mode: 'text',
         // pythonPath: 'path/to/python',
         pythonOptions: ['-u'], // get print results in real-time
         scriptPath: PyFilePath,
-        args: [PyInputPath, PyInputPath, timeSegID, treeNumRate, searchAngle, seedStrength, treeWidth, jumpLength, seedUnit, gridDirNum, delta]
+        args: [PyInputPath, PyInputPath, timeSegID, treeNumRate, searchAngle, seedStrength, treeWidth, jumpLength, seedUnit, gridDirNum, delta, maxDistance]
     };
 
     let result = {};
