@@ -12,7 +12,6 @@ var devConfig = {
     // 页面入口文件配置
     entry: {
         demo: ['./public/js/demo.js']
-        // 
     },
     output: {
         filename: '[name].js',

@@ -58,4 +58,3 @@ typings/
 .env
 
 # customize configuration
-conf/db.js

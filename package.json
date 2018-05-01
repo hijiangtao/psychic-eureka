@@ -1,7 +1,7 @@
 {
-  "name": "psychic-eureka",
+  "name": "simple-server",
   "version": "1.0.0",
-  "description": "A simple backend server implementation Edit",
+  "description": "A simple backend server implementation with Koa2",
   "main": "index.js",
   "scripts": {
     "dev": "node index.js",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hijiangtao/psychic-eureka.git"
+    "url": "git+https://github.com/hijiangtao/simple-server.git"
   },
   "author": "Joe Jiang",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/hijiangtao/psychic-eureka/issues"
+    "url": "https://github.com/hijiangtao/simple-server/issues"
   },
-  "homepage": "https://github.com/hijiangtao/psychic-eureka#readme",
+  "homepage": "https://github.com/hijiangtao/simple-server#readme",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-loader": "^7.1.2",
@@ -30,7 +30,6 @@
     "koa-static": "^4.0.1",
     "koa-webpack": "^2.0.3",
     "path": "^0.12.7",
-    "python-shell": "^0.5.0",
     "webpack-dev-middleware": "^2.0.4",
     "webpack-hot-middleware": "^2.21.0"
   },
@@ -39,10 +38,7 @@
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-register": "^6.26.0",
-    "d3": "^4.12.2",
     "koa-views": "^6.1.2",
-    "mongodb": "^3.0.1",
-    "mysql": "^2.15.0",
     "webpack": "^3.10.0"
   }
 }

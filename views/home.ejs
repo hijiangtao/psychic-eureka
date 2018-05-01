@@ -5,101 +5,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Demo</title>
+    <title>Demo Page</title>
     <script src="https://cdn.bootcss.com/vue/2.4.4/vue.min.js"></script>
     <script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.min.js"></script>
     <script src="/dist/demo.js"></script>
     <link rel="stylesheet" href="/css/demo.css">
-
-    <style>
-        p.limit500 {
-            /* width: 100%; */
-            height: 200px;
-            overflow: hidden;
-            padding: 1rem;
-            border: 1px solid black;
-        }
-
-        input[name="querytext"] {
-            width: 1200px;
-        }
-    </style>
 </head>
 
 <body>
     <div id="bgr-container">
         <h1>Demo Page</h1>
-        <h3>Basic Graph Request</h3>
-        <h3>Basic Graph Request - API(div v2)</h3>
-        <label for="">API: http://localhost:3000/api/basicGraph?spaceType=div&timeType=duration&netType=basic&other=none&beginTime=2016-07-05%2000:00:00&endTime=2016-07-05%2002:00:00&v=v2</label>
-        <hr>
-        <h3>Basic Graph Request - API(grid v2)</h3>
-        <label for="">API: http://localhost:3000/api/basicGraph?spaceType=grid&timeType=duration&netType=basic&other=none&beginTime=2016-07-05%2000:00:00&endTime=2016-07-05%2002:00:00&v=v2</label>
-        <hr>
-        <h3>Basic Graph Request - API(poi_to_div)</h3>
-        <label for="">API: http://localhost:3000/api/basicGraph?spaceType=poi_to_div&timeType=duration&netType=basic&other=none&beginTime=2016-07-05+11%3A00%3A00&endTime=2016-07-05+17%3A00%3A00</label>
-        <hr>
-        <h3>Basic Graph Request - API(div_to_poi)</h3>
-        <label for="">: http://localhost:3000/api/basicGraph?spaceType=div_to_poi&timeType=duration&netType=basic&other=none&beginTime=2016-07-05+11%3A00%3A00&endTime=2016-07-05+17%3A00%3A00</label>
-        <hr>
-        <h5>Demo GET for spaceType=grid</h5>
-        <label for="bg-bdate">Begin Time</label>
-        <input type="date" name="bg-bdate" v-model="bdate">
-        <input type="time" name="bg-btime" v-model="btime">
-        <label for="bg-edate">End Time</label>
-        <input type="date" name="bg-edate" v-model="edate">
-        <input type="time" name="bg-etime" v-model="etime">
-        <button v-on:click="req">Submit</button>
-        <br>
-        <label for="querytext">Query Text</label>
-        <input type="text" name="querytext" v-model="qtext">
-        <hr>
-        <p class="limit500">{{ res }}</p>
-        <hr>
-        <h3>Cluster Dots Query</h3>
-        <label for="">API: http://YourCustomeAPI/api/clusterDots?customize=0&v=v1&filterNoise=1</label>
-        <hr>
-        <h3>Trip Flow Query</h3>
-        <label for="">API: http://YourCustomeAPI/api/tripFlow?type=speed&thread=5000&time=2016-07-05%2000:00:00&order=DESC&v=v1</label>
-        <hr>
-        <h3>Tree Map Query</h3>
-        <label for="">API: http://YourCustomeAPI/api/treeMap?treeNumRate=0.01&searchAngle=60&seedStrength=0.1&treeWidth=1&spaceInterval=200&lineDirection=from&timeSegID=9&jumpLength=3&seedUnit=basic&gridDirNum=-1&delta=-1&maxDistance=9999</label>
-        <hr>
-        <h3>Angle Cluster Stats</h3>
-        <label for="">API: http://YourCustomeAPI/api/angleClusterStats?timeSegID=9</label>
-        <hr>
-        <h3>Abnormal Grid Counting Stats</h3>
-        <p>type 取值可选如下四个 key 值之一​：flow, record, ano1, ano2
-            <br> hourID 小时编号
-            <br> timeSegID 总时段上编号</p>
-        <label for="">API: http://YourCustomeAPI/api/abnormalStats?hourID=9&timeSegID=9&type=flow</label>
+        <h3>Introduction</h3>
+        <label for="">
+            * router/root.js: 指定页面路由（具体页面放 /views 内）
+            <br/> * public/*: 放静态资源（若不需要编译，前端调用使用 /[type]/[name].[suffix]）
+            <br/> * webpack.config.js: devConfig 中 entry 指定需要编译的 js 资源（前端调用使用 /dist/[name].js）</label>
     </div>
 
 
     <script>
         let ins = new Vue({
             el: '#bgr-container',
-            data: {
-                bdate: '2016-07-05',
-                edate: '2016-07-05',
-                btime: '00:00:00',
-                etime: '02:00:00',
-                res: 'No result',
-                qtext: 'Please submit your selection.'
-            },
-            methods: {
-                req: function () {
-                    let self = this,
-                        query =
-                        encodeURI(
-                            `/api/basicGraph?spaceType=grid&timeType=duration&netType=basic&other=none&beginTime=${this.bdate} ${this.btime}&endTime=${this.edate} ${this.etime}`
-                        );
-                    $.get(query, (res) => {
-                        self.res = res;
-                        self.qtext = `http://YourCustomeAPI${query}`;
-                    })
-                }
-            }
+            data: {},
+            methods: {}
         })
     </script>
 </body>
