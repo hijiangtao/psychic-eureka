@@ -38,11 +38,6 @@ var devConfig = {
             loader: 'style!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
         }]
     },
-    // resolve: {
-    //     alias: {
-    //         'vue$': 'vue/dist/vue.js'
-    //     }
-    // },
     node: {
         fs: "empty",
         child_process: "empty"

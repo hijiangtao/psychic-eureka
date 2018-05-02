@@ -7,7 +7,7 @@ export const test = async () => {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             resolve({
-                'result': true
+                'result': "Hello World!"
             })
         }, 1000);
     });
