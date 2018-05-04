@@ -6,8 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Demo Page</title>
-    <script src="https://cdn.bootcss.com/vue/2.4.4/vue.min.js"></script>
-    <script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.min.js"></script>
     <script src="/dist/demo.js"></script>
     <link rel="stylesheet" href="/css/demo.css">
 </head>
@@ -15,21 +13,8 @@
 <body>
     <div id="bgr-container">
         <h1>Demo Page</h1>
-        <h3>Introduction</h3>
-        <label for="">
-            * router/root.js: 指定页面路由（具体页面放 /views 内）
-            <br/> * public/*: 放静态资源（若不需要编译，前端调用使用 /[type]/[name].[suffix]）
-            <br/> * webpack.config.js: devConfig 中 entry 指定需要编译的 js 资源（前端调用使用 /dist/[name].js）</label>
+        <p>Welcome to XXX.</p>
     </div>
-
-
-    <script>
-        let ins = new Vue({
-            el: '#bgr-container',
-            data: {},
-            methods: {}
-        })
-    </script>
 </body>
 
 </html>
