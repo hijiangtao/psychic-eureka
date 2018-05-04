@@ -1,1 +1,15 @@
-body {}
+body {
+    font-size: 14px;
+}
+
+.head {
+    color: green;
+}
+
+.container {
+    color: gray;
+}
+
+.footer {
+    color: blue;
+}
